@@ -44,23 +44,60 @@
  *   getChaiOrderLength("  masala chai  ")  // => 11
  *   shoutChaiOrder("masala chai")          // => "MASALA CHAI"
  *   hasSpecialIngredient("Elaichi Chai", "elaichi")  // => true
- */
+ */ 
 export function getChaiOrderLength(order) {
   // Your code here
+  if(typeof order !=='string'){
+    return -1
+  }
+  const stringLength = order.trim().length
+  return stringLength
 }
 
 export function shoutChaiOrder(order) {
   // Your code here
+  if(typeof order !=='string') {
+    return ''
+  }
+  const trimedOrder = order.trim()
+ if(trimedOrder === "") {
+  return ""
+ }
+ return trimedOrder.toLocaleUpperCase()
 }
 
 export function whisperChaiOrder(order) {
   // Your code here
+   if(typeof order !=='string') {
+    return ''
+  }
+  const trimedOrder = order.trim()
+ if(trimedOrder === "") {
+  return ""
+ }
+ return trimedOrder.toLocaleLowerCase()
 }
 
 export function hasSpecialIngredient(order, ingredient) {
   // Your code here
+  if(typeof order !=='string' || typeof ingredient !=='string'){
+    return false
+  }
+
+return order.toLocaleLowerCase().includes(ingredient.toLocaleLowerCase())
 }
 
 export function getFirstAndLastChar(order) {
   // Your code here
+   if(typeof order !=='string') {
+    return null
+  }
+  const trimedOrder = order.trim()
+ if(trimedOrder === "") {
+  return null
+ }
+
+ const firstCharacter = trimedOrder.charAt(0)
+ const lastCharacter = trimedOrder.at(-1)
+ return {first:firstCharacter,last:lastCharacter}
 }

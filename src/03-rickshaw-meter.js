@@ -52,20 +52,52 @@
  */
 export function parseFare(fareString) {
   // Your code here
+  const parsedFare = parseFloat(fareString)
+  if(typeof fareString !=='string') {
+    return -1
+  }
+  if(isNaN(parsedFare)) {
+    return -1
+  }
+  return parsedFare
 }
 
 export function roundFare(amount, decimalPlaces) {
   // Your code here
+  if(isNaN(amount) || typeof amount !=='number' || isNaN(decimalPlaces) || typeof decimalPlaces !=='number' || decimalPlaces <0 || decimalPlaces%1 !==0){
+    return ""
+  }else {
+    return amount.toFixed(decimalPlaces)
+  }
 }
 
 export function calculateSurge(baseFare, surgeMultiplier) {
   // Your code here
+  if(isNaN(baseFare) || isNaN(surgeMultiplier) || typeof baseFare !=='number' || typeof surgeMultiplier !=='number' || baseFare <0 || surgeMultiplier <0){
+    return 0
+  }else
+    return Math.ceil(baseFare*surgeMultiplier)
 }
 
 export function findCheapestAndCostliest(...fares) {
   // Your code here
+  const validNumbers = fares.filter((num)=> !(isNaN(num)) && typeof num ==='number')
+  if(validNumbers.length === 0) {
+    return null;
+  }
+  const cheapest = Math.min(...validNumbers)
+  const costliest = Math.max(...validNumbers)
+  return {cheapest,costliest}
 }
 
 export function getDistanceDifference(from, to) {
   // Your code here
+  const parsedFrom = parseInt(from)
+  const parsedTo = parseInt(to)
+  if(isNaN(parsedFrom) || isNaN(parsedTo)) {
+    return -1
+  }
+
+  const absoluteDiff = Math.abs(parsedFrom-parsedTo)
+  return absoluteDiff
 }

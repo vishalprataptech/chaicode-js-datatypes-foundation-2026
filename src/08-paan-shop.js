@@ -12,7 +12,7 @@
  *
  *   1. createPaanOrder(basePaan, customizations)
  *      - Object.assign({}, basePaan, customizations) se NEW order object banao
- *      - Original basePaan ko mutate MAT karo!
+ *      - Original basePaan ko mutate MAT karo! 
  *      - Agar basePaan object nahi hai ya null hai, return {}
  *      - Agar customizations object nahi hai, sirf basePaan ki copy return karo
  *      - Example: createPaanOrder({type:"meetha",price:30}, {extra:"gulkand",price:50})
@@ -42,21 +42,60 @@
  *                 => {meetha:40, chocolate:60}
  *
  * @example
- *   createPaanOrder({type:"meetha"}, {extra:"gulkand"}) // => {type:"meetha",extra:"gulkand"}
+ *   createPaanOrder({type:"meetha"}, {extra:"gulkand"}) // => {type:"meetha",extra:"gulkand"} 
  *   updatePrices({meetha:30, saada:20}, 10)              // => {meetha:40, saada:30}
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+  if(basePaan === null || Array.isArray(basePaan) || typeof basePaan !=='object'){
+    return {}
+  }
+  if(customizations === null || Array.isArray(customizations) || typeof customizations !=='object'){
+    return Object.assign({},basePaan)
+  }
+
+  return Object.assign({},basePaan,customizations)
+
+
 }
 
 export function freezeMenu(menu) {
   // Your code here
+    if(menu === null || Array.isArray(menu) || typeof menu !=='object'){
+    return {}
+  } 
+  Object.freeze(menu)
+  return menu
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+      if(menu === null || Array.isArray(menu) || typeof menu !=='object' || increase === NaN || typeof increase !=='number'){
+    return {}
+  }
+
+  const entries = Object.entries(menu)
+  const finalArray = []
+for (const [key,value] of entries) {
+ finalArray.push([key,value+increase])
+}
+return Object.fromEntries(finalArray)
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  if((Array.isArray(regularMenu) || regularMenu === null || typeof regularMenu !=='object') && (!Array.isArray(specialsMenu) && specialsMenu !==null && typeof specialsMenu ==='object')){
+  return specialsMenu
+  }
+  if((Array.isArray(specialsMenu) || specialsMenu === null || typeof specialsMenu !=='object') && (!Array.isArray(regularMenu) && regularMenu !==null && typeof regularMenu ==='object')){
+  return regularMenu
+  }
+
+  if((Array.isArray(regularMenu) || regularMenu === null || typeof regularMenu !=='object') && (Array.isArray(specialsMenu) || specialsMenu === null || typeof specialsMenu !=='object')){
+    return {}
+  }
+
+  if((!Array.isArray(specialsMenu) && specialsMenu !==null && typeof specialsMenu ==='object') && (!Array.isArray(regularMenu) && regularMenu !==null && typeof regularMenu ==='object')){
+   return {...regularMenu,...specialsMenu}
+  }
 }
